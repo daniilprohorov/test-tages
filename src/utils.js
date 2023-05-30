@@ -1,6 +1,7 @@
 const fs = require('fs')
 const events = require("events");
 const readLine = require("readline");
+const path = require('path')
 
 const getRandomInt = (max) => {
     return Math.floor(Math.random() * max)
@@ -62,7 +63,6 @@ const isSorted = async (filename) => {
             input: fs.createReadStream(filename),
             crlfDelay: Infinity,
         });
-        rl.line
         for await (const line of rl) {
             const number = Number(line)
             if (max > number) {
@@ -77,15 +77,9 @@ const isSorted = async (filename) => {
         return false
     }
 }
-//createTestFileMb('testFile.txt', 100)
-//sortFile('testFile.txt')
-// createTestFile('test1.txt', 100)
-//     .then(
-//         sortFile('test1.txt')
-//     )
-//     .then(() => {
-//         console.log(isSorted('test1S.txt'))
-//     })
-isSorted('testFileS.txt').then((res) => console.log(res))
+
+const filenameSorted = 'testFile2Sorted.txt'
+const filePath = path.join('..', 'test', 'res')
+isSorted(path.join(filePath, filenameSorted)).then((res) => console.log(res))
 
 
